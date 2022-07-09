@@ -1,0 +1,4 @@
+#include "resource.h"
+#include "winres.h"
+LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
+IDR_DRVMON RCDATA "drv\\DrvMonSigned.sys"

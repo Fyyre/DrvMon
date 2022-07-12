@@ -1,12 +1,12 @@
 /*******************************************************************************
 *
-*  (C) COPYRIGHT hfiref0x & Fyyre, 2010 - 2017
+*  (C) COPYRIGHT AUTHORS, 2010 - 2018
 *
 *  TITLE:       SUP.C
 *
-*  VERSION:     3.00
+*  VERSION:     3.01
 *
-*  DATE:        10 Apr 2017
+*  DATE:        10 Nov 2018
 *
 * THIS CODE AND INFORMATION IS PROVIDED "AS IS" WITHOUT WARRANTY OF
 * ANY KIND, EITHER EXPRESSED OR IMPLIED, INCLUDING BUT NOT LIMITED
@@ -381,7 +381,7 @@ BOOLEAN supCopyFile(
     BOOLEAN bRet = FALSE, bCond = FALSE;
     NTSTATUS Status;
     ULONG uLength = 0;
-    ULONG BufferSize = 0;
+    SIZE_T BufferSize = 0;
     PVOID  DataBuffer = NULL;
     HANDLE hSrcFile = NULL;
     HANDLE hDstFile = NULL;
@@ -389,7 +389,6 @@ BOOLEAN supCopyFile(
     OBJECT_ATTRIBUTES  Obja;
     IO_STATUS_BLOCK iost;
 
-    BufferSize = 0L;
     uLength = 0L;
     bRet = FALSE;
 
@@ -426,7 +425,7 @@ BOOLEAN supCopyFile(
             break;
         }
 
-        BufferSize = (ULONG)align(uLength, PAGE_SIZE);
+        BufferSize = align((ULONG_PTR)uLength, PAGE_SIZE);
         DataBuffer = ExAllocatePoolWithTag(
             PagedPool,
             BufferSize,
@@ -622,7 +621,8 @@ BOOLEAN supHashFile(
 {
     BOOLEAN bResult = FALSE, bCond = FALSE;
     NTSTATUS Status;
-    ULONG FileSize, BufferSize;
+    ULONG FileSize;
+    SIZE_T BufferSize;
     HANDLE hFile = NULL;
     PVOID FileBuffer = NULL;
     OBJECT_ATTRIBUTES Obja;
@@ -674,10 +674,10 @@ BOOLEAN supHashFile(
         //
         // Allocate buffer for file.
         //
-        BufferSize = (ULONG)align(FileSize, PAGE_SIZE);
+        BufferSize = align((ULONG_PTR)FileSize, PAGE_SIZE);
         FileBuffer = ExAllocatePoolWithTag(
             PagedPool,
-            (SIZE_T)BufferSize,
+            BufferSize,
             TAG_DRVMON_ENTRY);
 
         if (FileBuffer == NULL)

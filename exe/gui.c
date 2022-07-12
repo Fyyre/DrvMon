@@ -1432,9 +1432,9 @@ VOID DmpUIReadSettings(
     //
     supReadWhiteList(hKey);
 
-#ifdef _DEBUG
-    supxxxTestKD();
-#endif
+//#ifdef _DEBUG
+//    supxxxTestKD();
+//#endif
 
     RegCloseKey(hKey);
 }
@@ -1547,6 +1547,8 @@ VOID DmUIMain(
         if (EventListHeap == NULL)
             break;
 
+        RtlSetHeapInformation(EventListHeap, HeapEnableTerminationOnCorruption, NULL, 0);
+
 #ifdef _DEBUG
         supxxxTestHash();
 #endif
@@ -1622,6 +1624,8 @@ VOID DmUIMain(
         ListView_SetExtendedListViewStyle(g_ctx.EventList,
             LVS_EX_FULLROWSELECT | LVS_EX_LABELTIP | LVS_EX_DOUBLEBUFFER);
 
+        SetWindowTheme(g_ctx.EventList, TEXT("Explorer"), NULL);
+
         // set image list
         g_ctx.EventImageList = DmpUILoadImageList(g_ctx.hInstance, IDI_ICON2, IDI_ICON6);
         if (g_ctx.EventImageList) {
@@ -1644,21 +1648,19 @@ VOID DmUIMain(
         col.pszText = LV_EVENT;
         col.fmt = LVCFMT_LEFT;
         col.iOrder = 0;
-        col.iImage = -1;
+        col.iImage = I_IMAGENONE;
         col.cx = 100;
         ListView_InsertColumn(g_ctx.EventList, 1, &col);
 
         col.iSubItem = 2;
         col.pszText = LV_TIME;
         col.iOrder = 1;
-        col.iImage = -1;
         col.cx = 100;
         ListView_InsertColumn(g_ctx.EventList, 2, &col);
 
         col.iSubItem = 3;
         col.pszText = LV_DESC;
         col.iOrder = 2;
-        col.iImage = -1;
         col.cx = 400;
         ListView_InsertColumn(g_ctx.EventList, 3, &col);
 
@@ -1675,11 +1677,11 @@ VOID DmUIMain(
         //
         // Load driver and set current process.
         //
-#ifdef _DEBUG
-        dwResult = 0;
-#else
+//#ifdef _DEBUG
+//        dwResult = 0;
+//#else   
         dwResult = DmpLoadDriver();
-#endif
+//#endif
         //
         // Apply settings, including white list.
         //
@@ -1695,10 +1697,10 @@ VOID DmUIMain(
         //
         DmUIAddInitializationCompleteEvent(dwResult);
 
-#ifdef _DEBUG
-        DmTestEvent();
-        DmxxxTestVerify();
-#endif
+//#ifdef _DEBUG
+//        DmTestEvent();
+//        DmxxxTestVerify();
+//#endif
 
         //
         // Do focus on listview.

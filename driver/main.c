@@ -1,12 +1,12 @@
 /*******************************************************************************
 *
-*  (C) COPYRIGHT hfiref0x & Fyyre, 2010 - 2017
+*  (C) COPYRIGHT AUTHORS, 2010 - 2018
 *
 *  TITLE:       MAIN.C
 *
-*  VERSION:     3.00
+*  VERSION:     3.01
 *
-*  DATE:        10 Apr 2017
+*  DATE:        10 Nov 2018
 *
 *  Codename: Sendai
 *
@@ -18,11 +18,15 @@
 *******************************************************************************/
 #include "drvmon.h"
 
+//
+// VERBOSE variable declared in drvmon.h
+// If you wish to watch all possible debug messages, uncomment it.
+//
+
 static DRVMONCONTEXT dmctx;
 
 const UCHAR DmPatchCodeMZ[] = { 0x4D, 0x5A, 0x52, 0x45, 0xB8, 0x01, 0x00, 0x00, 0xC0, 0xC3 };
 const UCHAR DmPathCodeEP[] = { 0xB8, 0x01, 0x00, 0x00, 0xC0, 0xC3 };
-
 
 /*
 * DmWriteMemory
@@ -82,7 +86,7 @@ NTSTATUS DmWriteMemory(
             if (Protect)
                 status = MmProtectMdlSystemAddress(mdl, NewProtect);
 
-            __movsb((PUCHAR)DestAddress, (const UCHAR *)SrcAddress, Size);
+            __movsb((PUCHAR)DestAddress, (const UCHAR *)SrcAddress, (SIZE_T)Size);
             MmUnmapLockedPages(DestAddress, mdl);
             MmUnlockPages(mdl);
 
@@ -525,7 +529,7 @@ VOID DmpImageLoadHandler(
             //
             // Error copy file, report event.
             //
-            LogEvent(EVENT_TYPE_DRV_ERROR, NULL, 0);
+            LogEvent(EVENT_TYPE_DRV_ERROR, NULL, (ULONG)STATUS_UNSUCCESSFUL);
         }
     }
 
@@ -925,6 +929,8 @@ NTSTATUS DmpProbeAndReadOutputDirectory(
 
         LOCK_DATA(&dmctx.OutputDirectoryMutex);
 
+        RtlSecureZeroMemory(dmctx.OutputDirectory, sizeof(dmctx.OutputDirectory));
+
         RtlCopyMemory(dmctx.OutputDirectory,
             InputSetOutDir->usOutputDirectory.Buffer,
             InputSetOutDir->usOutputDirectory.Length);
@@ -1074,7 +1080,7 @@ NTSTATUS DevioctlDispatch(
     //
 
     // 1. Make sure input buffer present and it size is not 0.
-    if ((InputLength != 0) && (!OriginalInput)) {
+    if ((InputLength != 0) && (OriginalInput == NULL)) {
         Status = STATUS_INVALID_BUFFER_SIZE;
         goto DispatchEnd;
     }

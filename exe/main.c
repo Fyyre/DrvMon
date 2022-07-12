@@ -1,12 +1,12 @@
 /*******************************************************************************
 *
-*  (C) COPYRIGHT Fyyre & EP_X0FF, 2010 - 2017
+*  (C) COPYRIGHT Fyyre & EP_X0FF, 2010 - 2018
 *
 *  TITLE:       MAIN.C
 *
-*  VERSION:     3.00
+*  VERSION:     3.01
 *
-*  DATE:        10 Apr 2017
+*  DATE:        10 Nov 2018
 *
 *  Program entry point.
 *
@@ -14,10 +14,11 @@
 *
 *  May 2011: created  2.0
 *  Jan 2012: revision 2.1
-*  Feb 2012: revesion 2.1.1
+*  Feb 2012: revision 2.1.1
 *  Feb 2013: revision 2.2
 *  Dec 2014: revision 2.2.1
 *  Apr 2017: created  3.0
+*  Nov 2018: revision 3.0.1
 *
 * THIS CODE AND INFORMATION IS PROVIDED "AS IS" WITHOUT WARRANTY OF
 * ANY KIND, EITHER EXPRESSED OR IMPLIED, INCLUDING BUT NOT LIMITED
@@ -84,6 +85,8 @@ ULONG DmInit(
             dwResult = ERROR_NOT_ENOUGH_MEMORY;
             break;
         }
+
+        RtlSetHeapInformation(g_ctx.dmHeap, HeapEnableTerminationOnCorruption, NULL, 0);
 
         //
         // Remember hInstance and current directory.

@@ -1,12 +1,12 @@
 /*******************************************************************************
 *
-*  (C) COPYRIGHT Fyyre & EP_X0FF, 2010 - 2017
+*  (C) COPYRIGHT Fyyre & EP_X0FF, 2010 - 2018
 *
 *  TITLE:       SUP.C
 *
-*  VERSION:     3.00
+*  VERSION:     3.01
 *
-*  DATE:        10 Apr 2017
+*  DATE:        10 Nov 2017
 *
 * THIS CODE AND INFORMATION IS PROVIDED "AS IS" WITHOUT WARRANTY OF
 * ANY KIND, EITHER EXPRESSED OR IMPLIED, INCLUDING BUT NOT LIMITED
@@ -978,7 +978,7 @@ LPWSTR supPrintHashEx(
     else
         Table = supConvertTableUpperCase;
 
-    OutputString = supHeapAlloc(Length * 2 * sizeof(WCHAR));
+    OutputString = supHeapAlloc((SIZE_T)(Length * 2 * sizeof(WCHAR)));
     if (OutputString == NULL) return NULL;
 
     for (i = 0; i < Length; i++) {

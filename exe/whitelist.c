@@ -1,12 +1,12 @@
 /*******************************************************************************
 *
-*  (C) COPYRIGHT Fyyre & EP_X0FF, 2010 - 2017
+*  (C) COPYRIGHT Fyyre & EP_X0FF, 2010 - 2018
 *
 *  TITLE:       WHITELIST.C
 *
-*  VERSION:     3.00
+*  VERSION:     3.01
 *
-*  DATE:        10 Apr 2017
+*  DATE:        10 Nov 2018
 *
 * THIS CODE AND INFORMATION IS PROVIDED "AS IS" WITHOUT WARRANTY OF
 * ANY KIND, EITHER EXPRESSED OR IMPLIED, INCLUDING BUT NOT LIMITED
@@ -102,33 +102,33 @@ PKDRVENTRY KdpFindEntry(
     while ((ListEntry != NULL) && (ListEntry != &KnownDriversListHead)) {
 
         tempEntry = CONTAINING_RECORD(ListEntry, KDRVENTRY, ListEntry);
-        if (tempEntry != NULL) {
-            //
-            // Lookup by Tag.
-            //
-            if ((Tag != 0) && (tempEntry->Tag == Tag)) {
+
+        //
+        // Lookup by Tag.
+        //
+        if ((Tag != 0) && (tempEntry->Tag == Tag)) {
+            Entry = tempEntry;
+            break;
+        }
+
+        //
+        // Lookup by driver name.
+        //
+        if (DriverName)
+            if (_strcmpi_w(tempEntry->Packet.DriverName, DriverName) == 0) {
                 Entry = tempEntry;
                 break;
             }
 
-            //
-            // Lookup by driver name.
-            //
-            if (DriverName)
-                if (_strcmpi_w(tempEntry->Packet.DriverName, DriverName) == 0) {
-                    Entry = tempEntry;
-                    break;
-                }
+        //
+        // Lookup by hash.
+        //
+        if ((Hash) && (HashLength))
+            if (RtlCompareMemory(tempEntry->Packet.HashValue, Hash, (SIZE_T)HashLength) == HashLength) {
+                Entry = tempEntry;
+                break;
+            }
 
-            //
-            // Lookup by hash.
-            //
-            if ((Hash) && (HashLength))
-                if (RtlCompareMemory(tempEntry->Packet.HashValue, Hash, (SIZE_T)HashLength) == HashLength) {
-                    Entry = tempEntry;
-                    break;
-                }
-        }
         ListEntry = ListEntry->Flink;
     }
 

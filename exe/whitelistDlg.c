@@ -4,9 +4,9 @@
 *
 *  TITLE:       WHITELISTDLG.C
 *
-*  VERSION:     3.00
+*  VERSION:     3.01
 *
-*  DATE:        10 Apr 2017
+*  DATE:        10 Nov 2017
 *
 * THIS CODE AND INFORMATION IS PROVIDED "AS IS" WITHOUT WARRANTY OF
 * ANY KIND, EITHER EXPRESSED OR IMPLIED, INCLUDING BUT NOT LIMITED
@@ -359,20 +359,21 @@ VOID WhiteListDialogInit(
 
         ListView_SetExtendedListViewStyle(g_wlListView, dwStyle);
 
+        SetWindowTheme(g_wlListView, TEXT("Explorer"), NULL);
+
         RtlSecureZeroMemory(&col, sizeof(col));
         col.mask = LVCF_TEXT | LVCF_SUBITEM | LVCF_FMT | LVCF_WIDTH | LVCF_ORDER;
         col.iSubItem = 1;
         col.pszText = LV_FILENAME;
         col.fmt = LVCFMT_LEFT;
         col.iOrder = 0;
-        col.iImage = -1;
+        col.iImage = I_IMAGENONE;
         col.cx = 220;
         ListView_InsertColumn(g_wlListView, 1, &col);
 
         col.iSubItem = 2;
         col.pszText = LV_HASH;
         col.iOrder = 1;
-        col.iImage = -1;
         col.cx = 400;
         ListView_InsertColumn(g_wlListView, 2, &col);
         KnownDriversEnumList(WhiteListEnum, (PVOID)g_wlListView);

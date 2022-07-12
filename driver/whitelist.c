@@ -1,12 +1,12 @@
 /*******************************************************************************
 *
-*  (C) COPYRIGHT hfiref0x & Fyyre, 2010 - 2017
+*  (C) COPYRIGHT AUTHORS, 2010 - 2018
 *
 *  TITLE:       WHITELIST.C
 *
-*  VERSION:     3.00
+*  VERSION:     3.01
 *
-*  DATE:        10 Apr 2017
+*  DATE:        10 Nov 2018
 *
 * THIS CODE AND INFORMATION IS PROVIDED "AS IS" WITHOUT WARRANTY OF
 * ANY KIND, EITHER EXPRESSED OR IMPLIED, INCLUDING BUT NOT LIMITED
@@ -89,7 +89,8 @@ PKDRVENTRY KdpFindEntry(
     _In_opt_ ULONG HashLength
 )
 {
-    PLIST_ENTRY ListEntry;;
+    SIZE_T hashLength = (SIZE_T)HashLength;
+    PLIST_ENTRY ListEntry;
     PKDRVENTRY tempEntry;
     PKDRVENTRY Entry = NULL;
 
@@ -125,8 +126,12 @@ PKDRVENTRY KdpFindEntry(
             //
             // Lookup by hash.
             //
-            if ((Hash != NULL) && (HashLength != 0))
-                if (RtlCompareMemory(tempEntry->Packet.HashValue, Hash, HashLength) == HashLength) {
+            if ((Hash != NULL) && (hashLength != 0))
+                if (hashLength == RtlCompareMemory(
+                    tempEntry->Packet.HashValue, 
+                    Hash, 
+                    hashLength))
+                {
                     Entry = tempEntry;
                     break;
                 }

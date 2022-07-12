@@ -1,12 +1,12 @@
 /*******************************************************************************
 *
-*  (C) COPYRIGHT hfiref0x & Fyyre, 2010 - 2017
+*  (C) COPYRIGHT AUTHORS, 2010 - 2018
 *
 *  TITLE:       DRVMON.H
 *
-*  VERSION:     3.00
+*  VERSION:     3.01
 *
-*  DATE:        10 Apr 2017
+*  DATE:        10 Nob 2018
 *
 * THIS CODE AND INFORMATION IS PROVIDED "AS IS" WITHOUT WARRANTY OF
 * ANY KIND, EITHER EXPRESSED OR IMPLIED, INCLUDING BUT NOT LIMITED
@@ -21,6 +21,12 @@
 #include <ntifs.h>
 #include <Ntstrsafe.h>
 #include <intrin.h>
+
+//
+// VERBOSE variable.
+// If you wish to watch all possible debug messages, uncomment it.
+//
+//#define VERBOSE
 
 NTKERNELAPI
 NTSTATUS
@@ -81,8 +87,8 @@ RtlImageNtHeader(
 
 #define MAX_PATH_DRV                    0x00000104
 #define MAXDRIVERNAME                   65535
-#define SHARED_SPACE_SIZE               256 * 1024
-#define MAX_OUTPUT_DIR_BUFFER_LENGTH    MAX_PATH_DRV * 2
+#define SHARED_SPACE_SIZE               (256 * 1024)
+#define MAX_OUTPUT_DIR_BUFFER_LENGTH    (MAX_PATH_DRV * 2)
 
 #define DM_MAXIMUM_INPUT_SIZE           640       
 

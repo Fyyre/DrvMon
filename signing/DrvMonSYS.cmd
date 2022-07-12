@@ -1,7 +1,7 @@
 echo Sign DrvMon
 
 set certsdir=C:\Certs\
-set signtooldir=C:\Program Files (x86)\Windows Kits\10\bin\x64\
+set signtooldir=C:\Program Files (x86)\Windows Kits\8.1\bin\x64\
 set outputdir=C:\MAKEEXE\DrvMon\driver\output\x64\ReleaseSigned\
 set drvresdir=C:\MAKEEXE\DrvMon\exe\drv\
 

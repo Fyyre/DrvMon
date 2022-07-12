@@ -1,12 +1,12 @@
 /*******************************************************************************
 *
-*  (C) COPYRIGHT Fyyre & EP_X0FF, 2010 - 2017
+*  (C) COPYRIGHT Fyyre & EP_X0FF, 2010 - 2018
 *
 *  TITLE:       GLOBAL.H
 *
-*  VERSION:     3.00
+*  VERSION:     3.01
 *
-*  DATE:        10 Apr 2017
+*  DATE:        18 Nov 2018
 *
 *  Common header file.
 *
@@ -29,11 +29,13 @@
 #pragma comment(lib, "vcruntimed.lib")
 #pragma comment(lib, "ucrtd.lib")
 #else
+#pragma comment(lib, "libucrt.lib")
 #pragma comment(lib, "libvcruntime.lib")
 #endif
 #endif
 
 #pragma comment(lib, "comctl32.lib")
+#pragma comment(lib, "uxtheme.lib")
 
 //
 // Ignored warnings
@@ -52,6 +54,7 @@
 #include <commctrl.h>
 #include <ntstatus.h>
 #include <ShlObj.h>
+#include <Uxtheme.h>
 #include "consts.h"
 #include "..\\shared\\ntos.h"
 #include "list.h"

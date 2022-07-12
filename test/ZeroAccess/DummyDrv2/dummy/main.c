@@ -1,12 +1,12 @@
 /*******************************************************************************
 *
-*  (C) COPYRIGHT hfiref0x & Fyyre, 2017
+*  (C) COPYRIGHT AUTHORS, 2017
 *
 *  TITLE:       MAIN.C
 *
 *  VERSION:     1.00
 *
-*  DATE:        07 Apr 2017
+*  DATE:        10 Apr 2017
 *
 * THIS CODE AND INFORMATION IS PROVIDED "AS IS" WITHOUT WARRANTY OF
 * ANY KIND, EITHER EXPRESSED OR IMPLIED, INCLUDING BUT NOT LIMITED
@@ -110,7 +110,7 @@ NTSTATUS UnsupportedDispatch(
 
 	Irp->IoStatus.Status = STATUS_NOT_SUPPORTED;
 	IoCompleteRequest(Irp, IO_NO_INCREMENT);
-	return Irp->IoStatus.Status;
+	return STATUS_NOT_SUPPORTED;
 }
 
 /*
@@ -126,12 +126,13 @@ NTSTATUS CreateDispatch(
 	_Inout_ struct _IRP *Irp
 	)
 {
+	NTSTATUS status = Irp->IoStatus.Status;
 	UNREFERENCED_PARAMETER(DeviceObject);
 
 	DbgPrint("[DrvMonTest] %s Create", __FUNCTION__);
 
 	IoCompleteRequest(Irp, IO_NO_INCREMENT);
-	return Irp->IoStatus.Status;
+	return status;
 }
 
 /*
@@ -147,12 +148,13 @@ NTSTATUS CloseDispatch(
 	_Inout_ struct _IRP *Irp
 	)
 {
+	NTSTATUS status = Irp->IoStatus.Status;
 	UNREFERENCED_PARAMETER(DeviceObject);
 
 	DbgPrint("[DrvMonTest] %s Close", __FUNCTION__);
 
     IoCompleteRequest(Irp, IO_NO_INCREMENT);
-	return Irp->IoStatus.Status;
+	return status;
 }
 
 /*

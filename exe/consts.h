@@ -1,12 +1,12 @@
 /*******************************************************************************
 *
-*  (C) COPYRIGHT Fyyre & EP_X0FF, 2010 - 2017
+*  (C) COPYRIGHT Fyyre & EP_X0FF, 2010 - 2018
 *
 *  TITLE:       CONSTS.H
 *
-*  VERSION:     3.00
+*  VERSION:     3.01
 *
-*  DATE:        10 Apr 2017
+*  DATE:        10 Nov 2018
 *
 *  Global consts definition file.
 *
@@ -60,8 +60,8 @@
 #define DM_SHAREDSECTION        L"\\BaseNamedObjects\\SendaiSharedSection"
 
 // about box messages
-#define DM_VERSION              L"3.0.0.1704"
-#define DM_COPYRIGHT            L"© 2010 - 2017 DrvMon, EP_X0FF && Fyyre"
+#define DM_VERSION              L"3.0.1.1811"
+#define DM_COPYRIGHT            L"© 2010 - 2018 DrvMon, EP_X0FF && Fyyre"
 #define DM_BUILD_STRING         L"Build date: "
 
 #define DM_FORMATTED_TIME_VALUE L"%02hd:%02hd:%02hd.%04hd"

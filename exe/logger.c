@@ -1,12 +1,12 @@
 /*******************************************************************************
 *
-*  (C) COPYRIGHT Fyyre & EP_X0FF, 2010 - 2017
+*  (C) COPYRIGHT Fyyre & EP_X0FF, 2010 - 2018
 *
 *  TITLE:       LOGGER.C
 *
-*  VERSION:     3.00
+*  VERSION:     3.01
 *
-*  DATE:        10 Apr 2017
+*  DATE:        10 Nov 2018
 *
 * THIS CODE AND INFORMATION IS PROVIDED "AS IS" WITHOUT WARRANTY OF
 * ANY KIND, EITHER EXPRESSED OR IMPLIED, INCLUDING BUT NOT LIMITED
@@ -31,13 +31,13 @@ DWORD WINAPI LoggerPipeInstanceThread(
 )
 {
     HANDLE hPipe = (HANDLE)lpParam;
-    DWORD dwReaded, dwLen = 0;
+    DWORD dwRead, dwLen = 0;
     PUCHAR Data = NULL;
     PUCHAR DataPtr = NULL;
     DWORD dwTotalReaded = 0, dwReadLen = 0;
     PDRVMON_EVENT pEvent = NULL;
 
-    while (ReadFile(hPipe, (PVOID)&dwLen, sizeof(dwLen), &dwReaded, NULL)) {
+    while (ReadFile(hPipe, (PVOID)&dwLen, sizeof(dwLen), &dwRead, NULL)) {
 
         if (dwLen > 0) {
             Data = (PUCHAR)supHeapAlloc((SIZE_T)dwLen);
@@ -45,11 +45,11 @@ DWORD WINAPI LoggerPipeInstanceThread(
                 DataPtr = Data;
                 dwReadLen = dwLen;
             read_again:
-                if (ReadFile(hPipe, DataPtr, dwReadLen, &dwReaded, NULL)) {
-                    dwTotalReaded += dwReaded;
+                if (ReadFile(hPipe, DataPtr, dwReadLen, &dwRead, NULL)) {
+                    dwTotalReaded += dwRead;
                     if (dwLen > dwTotalReaded) {
-                        DataPtr += dwReaded;
-                        dwReadLen -= dwReaded;
+                        DataPtr += dwRead;
+                        dwReadLen -= dwRead;
                         goto read_again;
                     }
                     pEvent = (PDRVMON_EVENT)Data;

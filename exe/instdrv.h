@@ -1,6 +1,6 @@
 /*******************************************************************************
 *
-*  (C) COPYRIGHT hfiref0x & Fyyre, 2015 - 2016, portions (C) Mark Russinovich, FileMon
+*  (C) COPYRIGHT AUTHORS, 2015 - 2016, portions (C) Mark Russinovich, FileMon
 *
 *  TITLE:       INSTDRV.H
 *

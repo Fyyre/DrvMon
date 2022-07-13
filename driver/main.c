@@ -72,6 +72,7 @@ NTSTATUS DmWriteMemory(
                 DbgPrint("[DM] DmWriteMemory: Invalid address.\n");
 #endif
 
+                IoFreeMdl(mdl);
                 return STATUS_ACCESS_VIOLATION;
             }
 

@@ -1,21 +1,16 @@
 # Legacy Windows Kernel Work (2010–2022)
 
-This repository has moved home.  
-Originally under **@Fyyre**, it now lives in the Forge Constellation at [@noct-ml](https://github.com/noct-ml).
+This repository was originally created under the username @Fyyre.  
+It has been transferred to noct-ml so the full history, stars, forks, commits, and issues are in one place.
 
-For over a decade I reverse-engineered the black boxes that run Windows — SSDT hooks, driver monitoring, PatchGuard bypasses, creative CRT unhooking for protected applications, and direct NTAPI trickery. Tools like DrvMon and Kernel Detective were battle-tested in the wild and stayed private until the right time.
+The repository contains work from 2010–2022 on Windows kernel reverse engineering, drivers, anti-rootkits, and low-level systems.
 
-That same instinct — to look inside the machine without fear — is exactly what now drives my AI forensics work.
+Original stars and complete commit history were preserved during the transfer.
 
-The forge never changed. Only the medium did.
-
-→ Current work lives in the Project Portfolio below.
-
-*(Original README continues below — leave everything else untouched)*
+Current development focuses on AI forensics and model internals.
 
 ---
 
-*(Original README continues below — leave everything else untouched)*
 # DrvMon
 # by hfiref0x (EP_X0FF) & Fyyre
 Advanced driver monitoring utility.

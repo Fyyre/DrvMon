@@ -9,5 +9,5 @@ well today.
 Given the last update to the code was in 2017, I see no reason as to why not to
 make it open source for all.
 
-It works on Windows 7 - Windows 10 version 10.0.19044.1766 (last version I tested on).
+It works on Windows 7 - Windows 11 version 10.0.26100.8655.
 
